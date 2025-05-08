@@ -211,6 +211,21 @@ std::string YourProposalFunction(
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
     }
+    elif(opertimizeforEDP == 1){ //the opposite of ED2P
+        configuration[0] = 0; //min width
+        configuration[1] = 0; //min fetchspeed
+        configuration[2] = 0; //in-order
+        configuration[3] = 0; //min RUU size
+        configuration[4] = 0; //min LSQ size
+        configuration[5] = 0; //one memport
+        configuration[17] = 0; //perfect branch predictor
+        for(int dim = 6; dim < 17; dim++){
+            configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
+        }
+    }
+    elif(opertimzeforEDAP == 1){
+        
+    }
 
 
     // produces an essentially random proposal
