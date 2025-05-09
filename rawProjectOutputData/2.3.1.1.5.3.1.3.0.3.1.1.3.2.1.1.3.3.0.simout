@@ -7,7 +7,7 @@ of SimpleScalar, LLC (info@simplescalar.com).
 
 sim: command line: /home/software/simplescalar/x86_64/bin/sim-outorder -fastfwd 5000000 -max:inst 100000 -fetch:ifqsize 8 -fetch:speed 2 -fetch:mplat 3 -decode:width 8 -issue:width 8 -issue:inorder false -issue:wrongpath true -ruu:size 128 -lsq:size 32 -res:ialu 8 -res:imult 8 -res:memport 2 -res:fpalu 8 -res:fpmult 8 -cache:dl1 dl1:256:64:1:l -cache:il1 il1:256:64:2:l -cache:il2 dl2 -cache:dl2 ul2:512:128:4:l -tlb:itlb itlb:8:4096:4:l -tlb:dtlb dtlb:8:4096:4:l -cache:dl1lat 2 -cache:il1lat 4 -cache:dl2lat 8 -mem:lat 51 7 -mem:width 8 -tlb:lat 30 -bpred perfect -redir:sim rawProjectOutputData/2.3.1.1.5.3.1.3.0.3.1.1.3.2.1.1.3.3.0.simout /home/software/simplesim/ss-benchmark/hmmer/hmmer_base.i386-m32-gcc42-nn /home/software/simplesim/ss-benchmark/hmmer/bombesin.hmm 
 
-sim: simulation started @ Wed May  7 18:49:23 2025, options follow:
+sim: simulation started @ Fri May  9 02:05:08 2025, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
@@ -210,12 +210,12 @@ itlb.repl_rate               0.0000 # replacement rate (i.e., repls/ref)
 itlb.wb_rate                 0.0000 # writeback rate (i.e., wrbks/ref)
 itlb.inv_rate                0.0000 # invalidation rate (i.e., invs/ref)
 dtlb.accesses                 28542 # total number of accesses
-dtlb.hits                     28527 # total number of hits
-dtlb.misses                      15 # total number of misses
+dtlb.hits                     28526 # total number of hits
+dtlb.misses                      16 # total number of misses
 dtlb.replacements                 0 # total number of replacements
 dtlb.writebacks                   0 # total number of writebacks
 dtlb.invalidations                0 # total number of invalidations
-dtlb.miss_rate               0.0005 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0006 # miss rate (i.e., misses/ref)
 dtlb.repl_rate               0.0000 # replacement rate (i.e., repls/ref)
 dtlb.wb_rate                 0.0000 # writeback rate (i.e., wrbks/ref)
 dtlb.inv_rate                0.0000 # invalidation rate (i.e., invs/ref)
@@ -229,9 +229,9 @@ ld_stack_size                 16384 # program initial stack size
 ld_prog_entry            0x00400140 # program entry point (initial PC)
 ld_environ_base          0x7fff8000 # program environment base address address
 ld_target_big_endian              0 # target executable endian-ness, non-zero if big endian
-mem.page_count                  752 # total number of pages allocated
-mem.page_mem                  3008k # total size of memory pages allocated
-mem.ptab_misses                 764 # total first level page table misses
-mem.ptab_accesses          35899134 # total page table accesses
+mem.page_count                  753 # total number of pages allocated
+mem.page_mem                  3012k # total size of memory pages allocated
+mem.ptab_misses                 765 # total first level page table misses
+mem.ptab_accesses          35901510 # total page table accesses
 mem.ptab_miss_rate           0.0000 # first level page table miss rate
 

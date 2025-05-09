@@ -87,15 +87,15 @@ int validateConfiguration(std::string configuration){
     if (isan18dimconfiguration(configuration) != 1)
         return 0;
 
-        // if it is, lets convert it to an array of ints for use below
+    
     int configurationInts[18];
-    int returnValue = 1;  // assume true, set 0 if otherwise
-    extractConfiguration(configuration, configurationInts); // Configuration parameters now available in array
+    int returnValue = 1;  
+    extractConfiguration(configuration, configurationInts); 
 
-    // Decode needed parameters
+    
     int width = config_width[configurationInts[0]];
     int fetch_speed = config_fetch_speed[configurationInts[1]];
-    std::string sched_type = config_schedule_type[configurationInts[2]];  // in-order or out-of-order
+    std::string sched_type = config_schedule_type[configurationInts[2]];  
     int ruu_size = config_ruu_size[configurationInts[3]];
     int lsq_size = config_lsq_size[configurationInts[4]];
     int memports = config_memports[configurationInts[5]];
@@ -210,8 +210,13 @@ std::string YourProposalFunction(
         for(int dim = 6; dim < 17; dim++){
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
+        // configuration[7] = 1; //2 ways
+        // configuration[9] = 1; //2 ways
+        // configuration[12] = 2; //4 ways
+
+       
     }
-    elif(opertimizeforEDP == 1){ //the opposite of ED2P
+    else if(optimizeforEDP == 1){ //the opposite of ED2P
         configuration[0] = 0; //min width
         configuration[1] = 0; //min fetchspeed
         configuration[2] = 0; //in-order
@@ -222,9 +227,43 @@ std::string YourProposalFunction(
         for(int dim = 6; dim < 17; dim++){
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
-    }
-    elif(opertimzeforEDAP == 1){
+        configuration[7] = 1; //2 ways
+        configuration[9] = 1; //2 ways
+        configuration[12] = 2; //4 ways
+       
         
+    }
+    else if(optimizeforEDAP == 1){
+        configuration[0] = 0; //min width
+        configuration[1] = 0; //min fetchspeed
+        configuration[2] = 0; //in-order
+        configuration[3] = 0; //min RUU size
+        configuration[4] = 0; //min LSQ size
+        configuration[5] = 0; //one memport
+        configuration[17] = 2; //bimodal
+        for(int dim = 6; dim < 17; dim++){
+            configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
+        }
+        configuration[7] = 1; //2 ways
+        configuration[9] = 1; //2 ways
+        configuration[12] = 2; //4 ways
+    
+    }
+    else if(optimizeforED2AP == 1){
+        configuration[0] = 2; //moderate width
+        configuration[1] = 1; //max fetchspeed
+        configuration[2] = 1; //dynamic
+        configuration[3] = 4; //moderate to large RUU size
+        configuration[4] = 2; //moderate to large LSQ size
+        configuration[5] = 1; //two memports
+        configuration[17] = 5; // comb
+        for(int dim = 6; dim < 17; dim++){
+            configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
+        }
+        configuration[7] = 1; //2 ways
+        configuration[9] = 1; //2 ways
+        configuration[12] = 2; //4 ways
+       
     }
 
 

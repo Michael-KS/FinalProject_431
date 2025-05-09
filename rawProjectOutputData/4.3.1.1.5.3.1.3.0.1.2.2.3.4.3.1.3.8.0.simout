@@ -7,7 +7,7 @@ of SimpleScalar, LLC (info@simplescalar.com).
 
 sim: command line: /home/software/simplescalar/x86_64/bin/sim-outorder -fastfwd 5000000 -max:inst 100000 -fetch:ifqsize 8 -fetch:speed 2 -fetch:mplat 3 -decode:width 8 -issue:width 8 -issue:inorder false -issue:wrongpath true -ruu:size 128 -lsq:size 32 -res:ialu 8 -res:imult 8 -res:memport 2 -res:fpalu 8 -res:fpmult 8 -cache:dl1 dl1:256:64:1:l -cache:il1 il1:64:64:4:l -cache:il2 dl2 -cache:dl2 ul2:1024:128:16:l -tlb:itlb itlb:32:4096:4:l -tlb:dtlb dtlb:32:4096:4:l -cache:dl1lat 2 -cache:il1lat 4 -cache:dl2lat 13 -mem:lat 51 7 -mem:width 8 -tlb:lat 30 -bpred perfect -redir:sim rawProjectOutputData/4.3.1.1.5.3.1.3.0.1.2.2.3.4.3.1.3.8.0.simout /home/software/simplesim/ss-benchmark/milc/milc_base.i386-m32-gcc42-nn 
 
-sim: simulation started @ Wed May  7 18:55:06 2025, options follow:
+sim: simulation started @ Fri May  9 02:10:45 2025, options follow:
 
 sim-outorder: This simulator implements a very detailed out-of-order issue
 superscalar processor with a two-level memory system and speculative
