@@ -227,9 +227,9 @@ std::string YourProposalFunction(
         for(int dim = 6; dim < 17; dim++){
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
-        configuration[7] = 1; //2 ways
-        configuration[9] = 1; //2 ways
-        configuration[12] = 2; //4 ways
+        //configuration[7] = 1; //2 ways
+        //configuration[9] = 1; //2 ways
+        //configuration[12] = 2; //4 ways
        
         
     }
@@ -244,9 +244,9 @@ std::string YourProposalFunction(
         for(int dim = 6; dim < 17; dim++){
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
-        configuration[7] = 1; //2 ways
-        configuration[9] = 1; //2 ways
-        configuration[12] = 2; //4 ways
+        //configuration[7] = 1; //2 ways
+        //configuration[9] = 1; //2 ways
+        //configuration[12] = 2; //4 ways
     
     }
     else if(optimizeforED2AP == 1){
@@ -260,9 +260,9 @@ std::string YourProposalFunction(
         for(int dim = 6; dim < 17; dim++){
             configuration[dim] = rand() % GLOB_dimensioncardinality[dim];
         }
-        configuration[7] = 1; //2 ways
-        configuration[9] = 1; //2 ways
-        configuration[12] = 2; //4 ways
+        //configuration[7] = 1; //2 ways
+        //configuration[9] = 1; //2 ways
+        //configuration[12] = 2; //4 ways
        
     }
 
