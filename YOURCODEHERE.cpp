@@ -14,47 +14,44 @@
 #include "431project.h"
 
 
-int count = 0;
+
 
 int l1_latency_table(int size_kb, int ways) {
     int base_latency = -1;
 
-    // Base latency for direct-mapped (1-way)
+    
     if      (size_kb == 8)  base_latency = 1;
     else if (size_kb == 16) base_latency = 2;
     else if (size_kb == 32) base_latency = 3;
     else if (size_kb == 64) base_latency = 4;
     else return -1;
 
-    // Associativity adjustment
+   
     if      (ways == 1) return base_latency;
     else if (ways == 2) return base_latency + 1;
     else if (ways == 4) return base_latency + 2;
-    else return -1; // invalid associativity
+    else return -1; 
 }
 
 int ul2_latency_table(int size_kb, int ways) {
     int base_latency = -1;
 
-    // Base latency (for 4-way set associative)
+   
     if      (size_kb == 128)  base_latency = 7;
     else if (size_kb == 256)  base_latency = 8;
     else if (size_kb == 512)  base_latency = 9;
     else if (size_kb == 1024) base_latency = 10;
     else if (size_kb == 2048) base_latency = 11;
-    else return -1;  // invalid size
+    else return -1; 
 
-    int offset = -999;  // invalid by default
+    if      (ways == 1)   return base_latency-2;
+    else if (ways == 2)   return base_latency-1;
+    else if (ways == 4)   return base_latency;
+    else if (ways == 8)   return base_latency+1;
+    else if (ways == 16)  return base_latency + 2;
+    else return -1;
 
-    // Associativity adjustment
-    if      (ways == 1)   offset = -2;
-    else if (ways == 2)   offset = -1;
-    else if (ways == 4)   offset = 0;
-    else if (ways == 8)   offset = 1;
-    else if (ways == 16)  offset = 2;
-    else return -1;  // invalid associativity
-
-    return base_latency + offset;
+    
 }
 
 /*
@@ -63,11 +60,7 @@ int ul2_latency_table(int size_kb, int ways) {
  */
 int validateConfiguration(std::string configuration){
     int config_width[4] = {1,2,4,8};
-    int config_fetch_speed[2] = {1,2};
-    std::string config_schedule_type[2] = {"in-order", "out-of-order"};
-    int config_ruu_size[6] = {4,8,16,32,64,128};
-    int config_lsq_size[4] = {4,8,16,32};
-    int config_memports[2] = {1,2};
+  
     
     int config_dl1_sets[9] = {32,64,128,256,512,1024,2048,4096,8192};
     int config_dl1_ways[3] = {1,2,4};
@@ -78,11 +71,10 @@ int validateConfiguration(std::string configuration){
     int config_ul2_blocksize[4] = {16,32,64,128};
     int config_ul2_ways[5] = {1,2,4,8,16};
 
-    int config_tlb_sets[5] = {4,8,16,32,64};
     int config_dl1_lat[7] = {1,2,3,4,5,6,7};
     int config_il1_lat[7] = {1,2,3,4,5,6,7};
     int config_ul2_lat[9] = {5,6,7,8,9,10,11,12,13};
-    std::string config_bpredictor[6] = {"Perfect","NotTaken", "Bimodal", "2 level GAp", "2 level PAg", "Combined"};
+  
     // is the configuration at least describing 18 integers/indices?
     if (isan18dimconfiguration(configuration) != 1)
         return 0;
@@ -94,11 +86,7 @@ int validateConfiguration(std::string configuration){
 
     
     int width = config_width[configurationInts[0]];
-    int fetch_speed = config_fetch_speed[configurationInts[1]];
-    std::string sched_type = config_schedule_type[configurationInts[2]];  
-    int ruu_size = config_ruu_size[configurationInts[3]];
-    int lsq_size = config_lsq_size[configurationInts[4]];
-    int memports = config_memports[configurationInts[5]];
+
 
     int dl1_sets = config_dl1_sets[configurationInts[6]];
     int dl1_ways = config_dl1_ways[configurationInts[7]];
@@ -109,11 +97,11 @@ int validateConfiguration(std::string configuration){
     int ul2_blocksize = config_ul2_blocksize[configurationInts[11]];
     int ul2_ways = config_ul2_ways[configurationInts[12]];
 
-    int tlb_sets = config_tlb_sets[configurationInts[13]];
+
     int dl1_lat = config_dl1_lat[configurationInts[14]];
     int il1_lat = config_il1_lat[configurationInts[15]];
     int ul2_lat = config_ul2_lat[configurationInts[16]];
-    std::string bpredictor = config_bpredictor[configurationInts[17]];
+   
     
     // 
     // FIXME - YOUR VERIFICATION CODE HERE 
@@ -131,19 +119,28 @@ int validateConfiguration(std::string configuration){
     int ul2_size = ul2_sets * ul2_ways * ul2_blocksize;
 
     // rule 2
-    if (ul2_blocksize < 2 * il1_blocksize || ul2_blocksize > 128) return 0;
-
-    if (ul2_size < (il1_size + dl1_size)) return 0;
-
+    if (ul2_blocksize < 2 * il1_blocksize || ul2_blocksize > 128) {
+        //printf("ul2_blocksize: %d, il1_blocksize: %d\n", ul2_blocksize, il1_blocksize);
+        returnValue = 0;
+    }
+    if (ul2_size < (il1_size + dl1_size)) {
+        //printf("ul2_size: %d, il1_size: %d, dl1_size: %d\n", ul2_size, il1_size, dl1_size);
+        returnValue = 0;
+    }
     // rule 3
     int il1_lat_expected = l1_latency_table(il1_size / 1024, il1_ways);
     int dl1_lat_expected = l1_latency_table(dl1_size / 1024, dl1_ways);
-    if (il1_lat != il1_lat_expected || dl1_lat != dl1_lat_expected) return 0;
+    if (il1_lat != il1_lat_expected || dl1_lat != dl1_lat_expected){
+        //printf("il1_lat: %d, dl1_lat: %d, expected il1_lat: %d, expected dl1_lat: %d\n", il1_lat, dl1_lat, il1_lat_expected, dl1_lat_expected);
+        returnValue = 0;
+    } 
     
     // rule 4
     int ul2_lat_expected = ul2_latency_table(ul2_size / 1024, ul2_ways);
-    if (ul2_lat != ul2_lat_expected) return 0;
-
+    if (ul2_lat != ul2_lat_expected) {
+        //printf("ul2_lat: %d, expected ul2_lat: %d\n", ul2_lat, ul2_lat_expected);
+        returnValue = 0;
+    }
     return returnValue;
 }
 
